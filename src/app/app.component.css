@@ -1,0 +1,16 @@
+img{
+
+    width: 100px;
+    height: 100px;
+    transition: width 1s, height 1s;
+  
+}
+img:hover{
+    width: 200px;
+    height: 200px;
+}
+.moveToleft{
+   transform: translateX(150%);
+   transition-duration: 2s;
+  
+}

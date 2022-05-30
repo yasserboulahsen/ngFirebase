@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fir-demo-3df5e": {
+      "hosting": {
+        "datePicker-demo": [
+          "fir-demo-3df5e"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fir-demo-3df5e"
+  }
+}
