@@ -2,7 +2,7 @@ img{
 
     width: 100px;
     height: 100px;
-    transition: width 1s, height 1s;
+    transition: width 2s, height 1.5s;
   
 }
 img:hover{
@@ -11,6 +11,13 @@ img:hover{
 }
 .moveToleft{
    transform: translateX(150%);
-   transition-duration: 2s;
-  
+   transition-duration: 2.5s;
+}
+
+button{
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    
+    
 }

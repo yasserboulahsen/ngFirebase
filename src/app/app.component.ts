@@ -17,8 +17,15 @@ import {
 } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 import { demos } from './demos';
-import { demo } from './demo';
+
 import { OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EditdemoComponent } from './editdemo/editdemo.component';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { DataSharingService } from './data-sharing.service';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +33,8 @@ import { OnInit } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  @Output('idDemoEdit') idDemoEdit = new EventEmitter<string>();
+
   isdelted: boolean = false;
   getFire = initializeApp(environment.firebase);
   data = getFirestore(this.getFire);
@@ -42,14 +51,17 @@ export class AppComponent implements OnInit {
       },
     },
   };
-  constructor() {}
+  constructor(
+    public dialog: MatDialog,
+    private charedData: DataSharingService
+  ) {}
   ngOnInit(): void {
     this.getdata();
   }
   async getdata() {
     const docref = query(
-      collection(this.data, 'reserved'),
-      where('category', '==', 'NYA')
+      collection(this.data, 'demonstrations'),
+      where('cours', '==', 'nya')
     );
     const snap = await getDocs(docref);
     snap.forEach((e) => {
@@ -75,8 +87,16 @@ export class AppComponent implements OnInit {
     const docdelete = doc(this.data, 'reserved', this.idDemo);
     deleteDoc(docdelete).then(() => console.log('doc deleted'));
   }
-  onclick(event: any) {
-    this.idDemo = event.id;
-    this.deleteData();
+  onclick(event: any, clicked: any) {
+    const tr = clicked.target.parentElement.parentElement;
+    //tr.classList.add('moveToleft');
+    this.dataResult.splice(event, 1);
+    // this.idDemo = event.id;
+    //this.deleteData();
+    //this.getdata();
+  }
+  openDialog(idEvent: any) {
+    this.dialog.open(EditdemoComponent);
+    this.charedData.setId(idEvent);
   }
 }

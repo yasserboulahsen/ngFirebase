@@ -10,14 +10,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { EditdemoComponent } from './editdemo/editdemo.component';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, EditdemoComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -29,6 +30,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     MatInputModule,
     MatCheckboxModule,
     ReactiveFormsModule,
+    FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
