@@ -1,0 +1,70 @@
+<form class="container" #f="ngForm" (ngSubmit)="formData(f)">
+  <div class="form-group col-md-12">
+    <label for="inputState">Cours</label>
+    <select id="inputState" class="form-control" required name="cours" ngModel>
+      <option value="nya">NYA</option>
+      <option value="nyb">NYB</option>
+      <option value="nyc">NYC</option>
+    </select>
+  </div>
+  <div class="form-group col-md-12">
+    <label for="chapitre">Chapitre</label>
+    <input
+      type="text"
+      class="form-control"
+      id="chapitre"
+      placeholder="chapitre"
+      required
+      name="chapitre"
+      ngModel
+    />
+  </div>
+  <div class="form-group col-md-12">
+    <label for="nom">Nom</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nom"
+      placeholder="Nom de la demo"
+      required
+      name="nom"
+      ngModel
+    />
+  </div>
+  <div class="form-group col-md-12">
+    <label for="place">Endroit</label>
+    <input
+      type="text"
+      class="form-control"
+      id="place"
+      placeholder="Endroit de la demo"
+      required
+      name="place"
+      ngModel
+    />
+  </div>
+  <div class="form-group col-md-12">
+    <label for="material">Material</label>
+    <textarea
+      class="form-control"
+      id="material"
+      rows="4"
+      name="textarea"
+      ngModel
+    ></textarea>
+  </div>
+  <div class="form-group col-md-12">
+    <label for="url">Url</label>
+    <input
+      type="text"
+      class="form-control"
+      id="url"
+      placeholder="url de l'image"
+      required
+      name="url"
+      ngModel
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

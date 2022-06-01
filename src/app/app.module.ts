@@ -23,6 +23,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
+import { AddDemoComponent } from './add-demo/add-demo.component';
+import { DemoCoursComponent } from './demo-cours/demo-cours.component';
+import { NyaComponent } from './demo-cours/nya/nya.component';
+import { NybComponent } from './demo-cours/nyb/nyb.component';
+import { NycComponent } from './demo-cours/nyc/nyc.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
 
@@ -32,6 +40,7 @@ const routes: Routes = [
     component: SignupComponent,
   },
   { path: 'admin', component: AdminComponent },
+  { path: 'demos', component: DemoCoursComponent },
   { path: '**', component: LoginComponent },
 ];
 @NgModule({
@@ -43,6 +52,11 @@ const routes: Routes = [
     NavbarComponent,
     HomeComponent,
     AdminComponent,
+    AddDemoComponent,
+    DemoCoursComponent,
+    NyaComponent,
+    NybComponent,
+    NycComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +71,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    MatTreeModule,
+    MatIconModule,
+    MatTabsModule,
     RouterModule.forRoot(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
