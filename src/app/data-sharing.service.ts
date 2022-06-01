@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DataSharingService {
   idDemoEdited: any;
+  isAdmin: boolean = false;
 
   constructor() {}
 
@@ -13,5 +14,11 @@ export class DataSharingService {
   }
   getId() {
     return this.idDemoEdited;
+  }
+  checkIfAdmin(admin: boolean) {
+    this.isAdmin = admin;
+  }
+  getIsAdmin() {
+    return this.isAdmin;
   }
 }

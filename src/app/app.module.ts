@@ -17,8 +17,33 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { EditdemoComponent } from './editdemo/editdemo.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './login/signup/signup.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AdminComponent } from './admin/admin.component';
+const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'signup',
+    component: SignupComponent,
+  },
+  { path: 'admin', component: AdminComponent },
+  { path: '**', component: LoginComponent },
+];
 @NgModule({
-  declarations: [AppComponent, EditdemoComponent],
+  declarations: [
+    AppComponent,
+    EditdemoComponent,
+    LoginComponent,
+    SignupComponent,
+    NavbarComponent,
+    HomeComponent,
+    AdminComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -31,6 +56,8 @@ import { EditdemoComponent } from './editdemo/editdemo.component';
     MatCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule,
+    RouterModule.forRoot(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
