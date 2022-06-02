@@ -1,15 +1,17 @@
 export class demos {
   id: string;
   demo: {
-    category: string;
-    demo: { name: string; place: string; url: string };
+    cours: string;
+    chapitre: string;
+    demo: { name: string; place: string; material: string; url: string };
   };
 
   constructor(
     id: string,
     demo: {
-      category: string;
-      demo: { name: string; place: string; url: string };
+      cours: string;
+      chapitre: string;
+      demo: { name: string; place: string; material: string; url: string };
     }
   ) {
     this.id = id;

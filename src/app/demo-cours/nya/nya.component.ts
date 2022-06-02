@@ -4,6 +4,9 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
+import { DataSharingService } from 'src/app/data-sharing.service';
+import { DatabaseService } from 'src/app/database.service';
+import { demos } from 'src/app/demos';
 interface FoodNode {
   name: string;
   children?: FoodNode[];
@@ -41,7 +44,10 @@ interface ExampleFlatNode {
   styleUrls: ['./nya.component.css'],
 })
 export class NyaComponent implements OnInit {
-  ngOnInit(): void {}
+  demosNya: demos[] = [];
+  ngOnInit(): void {
+    this.getNyaData();
+  }
   private _transformer = (node: FoodNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -64,9 +70,18 @@ export class NyaComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor() {
+  constructor(
+    private sharedData: DataSharingService,
+    private database: DatabaseService
+  ) {
     this.dataSource.data = TREE_DATA;
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  async getNyaData() {
+    await this.database.getdata('demonstrations', 'nya').then((e) => {
+      this.demosNya = e;
+    });
+    console.log(this.demosNya);
+  }
 }

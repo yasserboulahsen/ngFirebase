@@ -38,10 +38,12 @@ export class DatabaseService {
   demosData: demos = {
     id: '',
     demo: {
-      category: '',
+      cours: '',
+      chapitre: '',
       demo: {
         name: '',
         place: '',
+        material: '',
         url: '',
       },
     },
