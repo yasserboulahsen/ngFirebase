@@ -1,6 +1,8 @@
 <app-navbar></app-navbar>
 <div>
-  <button class="btn btn-primary" (click)="ajouterDemo()">ajouter demo</button>
+  <button class="btn btn-primary" id="ajouteDemo" (click)="ajouterDemo()">
+    ajouter demo
+  </button>
 </div>
 <table class="table container">
   <thead class="thead-dark">
@@ -15,7 +17,13 @@
     <tr *ngFor="let demo of dataResult">
       <td>{{ demo.demo.name }}</td>
       <td>{{ demo.demo.place }}</td>
-      <td><img src="{{ demo.demo.url }}" alt="" /></td>
+      <td>
+        <img
+          src="{{ demo.demo.url }}"
+          alt=""
+          (click)="showPic(demo.demo.url)"
+        />
+      </td>
       <td>
         <button class="btn btn-danger" (click)="onclick(demo, $event)">
           <svg

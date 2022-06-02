@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class DataSharingService {
   idDemoEdited: any;
   isAdmin: boolean = false;
-
+  imageUrl: string = '';
   constructor() {}
 
   setId(id: any) {
@@ -20,5 +20,11 @@ export class DataSharingService {
   }
   getIsAdmin() {
     return this.isAdmin;
+  }
+  setImage(image: string) {
+    this.imageUrl = image;
+  }
+  getImage() {
+    return this.imageUrl;
   }
 }

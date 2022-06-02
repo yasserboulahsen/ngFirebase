@@ -11,7 +11,17 @@ import {
   query,
   where,
   onSnapshot,
+  DocumentData,
 } from 'firebase/firestore';
+import {
+  getDownloadURL,
+  getMetadata,
+  getStorage,
+  ref,
+  StorageReference,
+  uploadBytes,
+} from 'firebase/storage';
+import { finalize, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { demos } from './demos';
 
@@ -21,6 +31,9 @@ import { demos } from './demos';
 export class DatabaseService {
   getFire = initializeApp(environment.firebase);
   data = getFirestore(this.getFire);
+  storage = getStorage(this.getFire);
+  imageRef: string = '';
+
   dataResult: any[] = [];
   demosData: demos = {
     id: '',
@@ -36,7 +49,11 @@ export class DatabaseService {
 
   constructor() {}
 
-  async postData(f: NgForm, database: string) {
+  split(str: string) {
+    return str.replace(/^.*(\\|\/|\:)/, '');
+  }
+
+  async postData(f: NgForm, database: string, file: File) {
     await setDoc(doc(collection(this.data, database)), {
       cours: f.value.cours,
       chapitre: f.value.chapitre,
@@ -44,25 +61,50 @@ export class DatabaseService {
         name: f.value.nom,
         place: f.value.place,
         material: f.value.textarea,
-        url: f.value.url,
+        url: await this.uploadImage(f.value.url, f.value.cours, file),
       },
     });
   }
+
   async getdata(database: string, cours: string) {
     const docref = query(
       collection(this.data, database),
       where('cours', '==', cours)
     );
     const snap = await getDocs(docref);
-    snap.forEach((e) => {
-      this.demosData = e.data() as demos;
-      this.demosData.id = e.id;
+    this.dataResult = snap.docs.map(
+      (e) => ({ id: e.id, ...e.data() } as demos)
+    );
 
-      this.dataResult.push(this.demosData);
-    });
+    return this.dataResult;
   }
+
+  getDataObservable(database: string, cours: string) {
+    const docref = query(
+      collection(this.data, database),
+      where('cours', '==', cours)
+    );
+  }
+
   async deleteData(database: string, id: string) {
     const docdelete = doc(this.data, database, id);
     deleteDoc(docdelete).then(() => console.log('doc deleted'));
+  }
+
+  async uploadImage(image: string, cours: string, file: File): Promise<string> {
+    const imageSplit = this.split(image);
+    const imageRef = ref(this.storage, `${cours}/${imageSplit}`);
+    await uploadBytes(imageRef, file);
+    return await getDownloadURL(imageRef);
+  }
+
+  async getAllDemos(database: string) {
+    const docref = query(collection(this.data, database));
+    const snap = await getDocs(docref);
+    this.dataResult = snap.docs.map(
+      (e) => ({ id: e.id, ...e.data() } as demos)
+    );
+
+    return this.dataResult;
   }
 }

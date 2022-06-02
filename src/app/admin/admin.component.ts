@@ -23,6 +23,9 @@ import { EditdemoComponent } from '../editdemo/editdemo.component';
 import { AddDemoComponent } from '../add-demo/add-demo.component';
 import { DataSharingService } from '../data-sharing.service';
 import { DatabaseService } from '../database.service';
+import { ShowImagesComponent } from '../show-images/show-images.component';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -34,21 +37,27 @@ export class AdminComponent implements OnInit {
   idDemo: string = '';
   dataResult: any[] = [];
 
+  dataObs: Observable<demos[]> | null;
+
   constructor(
     public dialog: MatDialog,
-    private charedData: DataSharingService,
+    private sharedData: DataSharingService,
     private database: DatabaseService
-  ) {}
+  ) {
+    this.dataObs = null;
+  }
+
   ngOnInit(): void {
     this.getdata();
   }
   getdata() {
-    this.database.getdata('demonstrations', 'nya');
-    this.dataResult = this.database.dataResult;
+    this.database.getAllDemos('demonstrations').then((data) => {
+      this.dataResult = data;
+    });
   }
 
   async deleteData() {
-    const docdelete = doc(this.data, 'reserved', this.idDemo);
+    const docdelete = doc(this.data, 'demonstrations', this.idDemo);
     deleteDoc(docdelete).then(() => console.log('doc deleted'));
   }
   onclick(event: any, clicked: any) {
@@ -56,15 +65,19 @@ export class AdminComponent implements OnInit {
     //tr.classList.add('moveToleft');
     const index = this.dataResult.indexOf(event);
     this.dataResult.splice(index, 1);
-    // this.idDemo = event.id;
-    //this.deleteData();
+    this.idDemo = event.id;
+    this.deleteData();
     //this.getdata();
   }
   openDialog(idEvent: any) {
     this.dialog.open(EditdemoComponent);
-    this.charedData.setId(idEvent);
+    this.sharedData.setId(idEvent);
   }
   ajouterDemo() {
     this.dialog.open(AddDemoComponent);
+  }
+  showPic(demo: string) {
+    this.sharedData.setImage(demo);
+    this.dialog.open(ShowImagesComponent);
   }
 }
