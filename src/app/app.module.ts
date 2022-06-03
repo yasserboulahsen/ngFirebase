@@ -33,17 +33,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { ShowImagesComponent } from './show-images/show-images.component';
+import { AuthGuardGuard } from './guards/auth-guard.guard';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
 
   { path: 'login', component: LoginComponent },
   {
     path: 'signup',
     component: SignupComponent,
   },
-  { path: 'admin', component: AdminComponent },
-  { path: 'demos', component: DemoCoursComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuardGuard] },
+  {
+    path: 'demos',
+    component: DemoCoursComponent,
+    canActivate: [AuthGuardGuard],
+  },
   { path: '**', component: LoginComponent },
 ];
 @NgModule({

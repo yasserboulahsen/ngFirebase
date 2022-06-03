@@ -2,7 +2,7 @@ import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DataSharingService } from '../data-sharing.service';
+import { DataSharingService } from '../services/data-sharing.service';
 import { initializeApp } from 'firebase/app';
 import {
   collection,
