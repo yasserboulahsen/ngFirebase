@@ -4,8 +4,8 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
-import { DataSharingService } from 'src/app/data-sharing.service';
-import { DatabaseService } from 'src/app/database.service';
+import { DataSharingService } from 'src/app/services/data-sharing.service';
+import { DatabaseService } from 'src/app/services/database.service';
 import { demos } from 'src/app/demos';
 interface FoodNode {
   name: string;

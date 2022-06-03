@@ -23,7 +23,7 @@ import {
 } from 'firebase/storage';
 import { finalize, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { demos } from './demos';
+import { demos } from '../demos';
 
 @Injectable({
   providedIn: 'root',

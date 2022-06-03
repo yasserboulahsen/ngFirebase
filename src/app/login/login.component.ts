@@ -16,7 +16,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataSharingService } from '../data-sharing.service';
+import { DataSharingService } from '../services/data-sharing.service';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         const user = userCredential.user;
         if (user.email === 'yasserboulahsen@gmail.com') {
           this.dataCharing.checkIfAdmin(true);
+          console.log(user);
         }
         this.route.navigate(['/home']);
 
