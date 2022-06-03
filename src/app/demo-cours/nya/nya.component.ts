@@ -7,81 +7,57 @@ import {
 import { DataSharingService } from 'src/app/data-sharing.service';
 import { DatabaseService } from 'src/app/database.service';
 import { demos } from 'src/app/demos';
-interface FoodNode {
-  name: string;
-  children?: FoodNode[];
-}
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { demo } from 'src/app/demo';
+export class TableExpandableRowsExample {}
 
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'Fruit',
-    children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
-  },
-  {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
-      },
-      {
-        name: 'Orange',
-        children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
-      },
-    ],
-  },
-];
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
 @Component({
   selector: 'app-nya',
   templateUrl: './nya.component.html',
   styleUrls: ['./nya.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class NyaComponent implements OnInit {
   demosNya: demos[] = [];
+  ELEMENT_DATA: demo[] = [];
+  dataSource: any[] = [];
+  columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
+  columnsToDisplayWithExpand: string[] = [];
+  expandedElement!: demos;
   ngOnInit(): void {
-    this.getNyaData();
+    this.getNyaData()
+      .then((e) => {
+        this.ELEMENT_DATA = e;
+        this.dataSource = this.ELEMENT_DATA;
+
+        this.columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-  private _transformer = (node: FoodNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level: level,
-    };
-  };
-
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
-    (node) => node.level,
-    (node) => node.expandable
-  );
-
-  treeFlattener = new MatTreeFlattener(
-    this._transformer,
-    (node) => node.level,
-    (node) => node.expandable,
-    (node) => node.children
-  );
-
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
   constructor(
     private sharedData: DataSharingService,
     private database: DatabaseService
-  ) {
-    this.dataSource.data = TREE_DATA;
-  }
+  ) {}
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
   async getNyaData() {
-    await this.database.getdata('demonstrations', 'nya').then((e) => {
-      this.demosNya = e;
-    });
-    console.log(this.demosNya);
+    return await this.database.getdata('demonstrations', 'nya');
   }
 }

@@ -31,6 +31,7 @@ import { NycComponent } from './demo-cours/nyc/nyc.component';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
 import { ShowImagesComponent } from './show-images/show-images.component';
 
 const routes: Routes = [
@@ -77,7 +78,7 @@ const routes: Routes = [
     MatTreeModule,
     MatIconModule,
     MatTabsModule,
-
+    MatTableModule,
     RouterModule.forRoot(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
