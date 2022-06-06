@@ -1,7 +1,7 @@
 img{
 
-    width: 60px;
-    height: 60px;
+    width: 35px;
+    height: 35px;
     transition: width 2s, height 1.5s;
   
 }
@@ -17,12 +17,26 @@ img{
 }
 
 .table.button{
-    margin-left: 10px;
+    
     width: 40px;
     height: 40px;
+    float: right;
     
 }
-#ajouteDemo{
+#searchbar{
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
     margin-top: 20px;
-    margin-left: 30px;
+ 
+  
 }
+
+
+#form1{
+    width: 450px;
+}
+

@@ -16,7 +16,7 @@ import {
   onSnapshot,
 } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
-import { demos } from '../demos';
+import { demos } from 'src/app/interfaces/demos';
 
 import { MatDialog } from '@angular/material/dialog';
 import { EditdemoComponent } from '../editdemo/editdemo.component';

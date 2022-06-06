@@ -34,6 +34,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { ShowImagesComponent } from './show-images/show-images.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
+import { MatCardModule } from '@angular/material/card';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
@@ -84,6 +85,7 @@ const routes: Routes = [
     MatIconModule,
     MatTabsModule,
     MatTableModule,
+    MatCardModule,
     RouterModule.forRoot(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

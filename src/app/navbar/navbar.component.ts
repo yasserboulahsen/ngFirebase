@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataSharingService } from '../services/data-sharing.service';
+import { LoginLogoutService } from '../services/login-logout.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +10,20 @@ import { DataSharingService } from '../services/data-sharing.service';
 })
 export class NavbarComponent implements OnInit {
   isadmin: boolean = false;
-  constructor(private dataCharing: DataSharingService) {}
+  isUser: boolean = false;
+  email: string | null = '';
+
+  constructor(
+    private dataCharing: DataSharingService,
+    private log: LoginLogoutService
+  ) {}
 
   ngOnInit(): void {
     this.isadmin = this.dataCharing.getIsAdmin();
+    this.isUser = this.dataCharing.getUser();
+    this.email = this.dataCharing.getUserEmail();
+  }
+  logout() {
+    this.log.logout();
   }
 }

@@ -23,31 +23,20 @@ import {
 } from 'firebase/storage';
 import { finalize, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { demos } from '../demos';
+import { demos } from 'src/app/interfaces/demos';
+import { userData } from '../interfaces/users';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DatabaseService {
+  userdata: userData[] = [];
   getFire = initializeApp(environment.firebase);
   data = getFirestore(this.getFire);
   storage = getStorage(this.getFire);
   imageRef: string = '';
 
   dataResult: any[] = [];
-  demosData: demos = {
-    id: '',
-    demo: {
-      cours: '',
-      chapitre: '',
-      demo: {
-        name: '',
-        place: '',
-        material: '',
-        url: '',
-      },
-    },
-  };
 
   constructor() {}
 
@@ -108,5 +97,16 @@ export class DatabaseService {
     );
 
     return this.dataResult;
+  }
+
+  async getUserDatabase(email: string) {
+    const docref = query(
+      collection(this.data, 'users'),
+      where('user.email', '==', email)
+    );
+    const snap = await getDocs(docref);
+    this.userdata = snap.docs.map((e) => ({ ...e.data() } as userData));
+
+    return this.userdata;
   }
 }

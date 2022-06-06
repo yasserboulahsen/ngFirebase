@@ -4,9 +4,12 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DataSharingService {
+  localUser: string | null = '';
   idDemoEdited: any;
   isAdmin: boolean = false;
   imageUrl: string = '';
+  isUser: boolean = false;
+  userEmail: string | null = '';
   constructor() {}
 
   setId(id: any) {
@@ -26,5 +29,26 @@ export class DataSharingService {
   }
   getImage() {
     return this.imageUrl;
+  }
+  getUser() {
+    return this.isUser;
+  }
+  setUser(user: boolean) {
+    this.isUser = user;
+  }
+  getUserEmail() {
+    return this.userEmail;
+  }
+  setUserEmail(email: string | null) {
+    this.userEmail = email;
+  }
+
+  setLocalUser(user: string | null) {
+    if (user !== null) {
+      this.localUser = JSON.parse(user);
+    }
+  }
+  getLocalUser() {
+    return this.localUser;
   }
 }

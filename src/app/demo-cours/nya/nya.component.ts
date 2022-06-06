@@ -6,7 +6,7 @@ import {
 } from '@angular/material/tree';
 import { DataSharingService } from 'src/app/services/data-sharing.service';
 import { DatabaseService } from 'src/app/services/database.service';
-import { demos } from 'src/app/demos';
+import { demos } from 'src/app/interfaces/demos';
 import {
   animate,
   state,
@@ -14,7 +14,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { demo } from 'src/app/demo';
+import { demo } from 'src/app/interfaces/demo';
 export class TableExpandableRowsExample {}
 
 @Component({

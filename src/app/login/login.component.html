@@ -1,4 +1,4 @@
-<form #form="ngForm" (submit)="login(form)" class="container">
+<form #form="ngForm" (submit)="logFrom(form)">
   <h2>Sing In</h2>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
@@ -24,7 +24,9 @@
     />
   </div>
   <div>
-    <button type="submit" class="btn btn-primary">LogIn</button>
+    <button type="submit" class="btn btn-primary" id="login">LogIn</button>
+  </div>
+  <div>
     <span><a routerLink="/signup">Sign Up</a></span>
   </div>
 </form>

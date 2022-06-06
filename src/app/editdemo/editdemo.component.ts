@@ -24,6 +24,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./editdemo.component.css'],
 })
 export class EditdemoComponent implements OnInit {
+  fileImages: any = null;
   getFire = initializeApp(environment.firebase);
   data = getFirestore(this.getFire);
 
@@ -44,5 +45,8 @@ export class EditdemoComponent implements OnInit {
     }).then(() => {
       console.log('doc updated');
     });
+  }
+  imageFileChane(event: any) {
+    this.fileImages = <File>event.target.files[0];
   }
 }

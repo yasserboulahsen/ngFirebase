@@ -19,14 +19,22 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login">LogIn</a>
+        <a class="nav-link" routerLink="/demos">Demonstrations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/demos">Demonstrations</a>
+        <a class="nav-link" routerLink="/login" *ngIf="!isUser">LogIn</a>
+        <a
+          class="nav-link"
+          style="cursor: pointer"
+          *ngIf="isUser"
+          (click)="logout()"
+          >LogOut</a
+        >
       </li>
       <li class="nav-item" *ngIf="isadmin">
         <a class="nav-link" routerLink="/admin">Admin</a>
       </li>
     </ul>
+    <span>{{ email }}</span>
   </div>
 </nav>
