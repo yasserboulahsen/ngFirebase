@@ -9,6 +9,7 @@ export class DataSharingService {
   isAdmin: boolean = false;
   imageUrl: string = '';
   isUser: boolean = false;
+  userUid: string | null = '';
   userEmail: string | null = '';
   constructor() {}
 
@@ -36,11 +37,11 @@ export class DataSharingService {
   setUser(user: boolean) {
     this.isUser = user;
   }
-  getUserEmail() {
-    return this.userEmail;
+  getUserUid() {
+    return this.userUid;
   }
-  setUserEmail(email: string | null) {
-    this.userEmail = email;
+  setUserUid(uid: string | null) {
+    this.userUid = uid;
   }
 
   setLocalUser(user: string | null) {
@@ -50,5 +51,12 @@ export class DataSharingService {
   }
   getLocalUser() {
     return this.localUser;
+  }
+  getUserEmail() {
+    return this.userEmail;
+  }
+
+  setUserEmail(email: string | null) {
+    this.userEmail = email;
   }
 }

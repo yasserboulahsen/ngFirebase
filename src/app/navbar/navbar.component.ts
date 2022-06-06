@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
   isadmin: boolean = false;
   isUser: boolean = false;
   email: string | null = '';
+  uid: string | null = '';
 
   constructor(
     private dataCharing: DataSharingService,
@@ -21,7 +22,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.isadmin = this.dataCharing.getIsAdmin();
     this.isUser = this.dataCharing.getUser();
-    this.email = this.dataCharing.getUserEmail();
+    this.uid = this.dataCharing.getUserUid();
   }
   logout() {
     this.log.logout();

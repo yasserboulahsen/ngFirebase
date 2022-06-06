@@ -28,8 +28,8 @@ export class AuthGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const local = this.data.getLocalUser();
-    console.log(local);
+    // const local = this.data.getLocalUser();
+    // console.log(local);
 
     if (this.data.getUser()) {
       return true;

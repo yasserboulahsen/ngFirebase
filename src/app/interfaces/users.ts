@@ -2,6 +2,7 @@ export interface userData {
   user: {
     name: string;
     email: string;
-    role: string;
+    isAdmin: boolean;
+    uid: string;
   };
 }

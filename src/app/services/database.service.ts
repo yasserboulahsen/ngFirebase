@@ -99,10 +99,10 @@ export class DatabaseService {
     return this.dataResult;
   }
 
-  async getUserDatabase(email: string) {
+  async getUserDatabase(uid: string) {
     const docref = query(
       collection(this.data, 'users'),
-      where('user.email', '==', email)
+      where('user.uid', '==', uid)
     );
     const snap = await getDocs(docref);
     this.userdata = snap.docs.map((e) => ({ ...e.data() } as userData));
