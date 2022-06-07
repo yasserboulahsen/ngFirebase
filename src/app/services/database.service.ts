@@ -36,7 +36,8 @@ export class DatabaseService {
   storage = getStorage(this.getFire);
   imageRef: string = '';
 
-  dataResult: any[] = [];
+  dataResult: demos[] = [];
+  demosByCours: demos[] = [];
 
   constructor() {}
 
@@ -63,11 +64,10 @@ export class DatabaseService {
       where('cours', '==', cours)
     );
     const snap = await getDocs(docref);
-    this.dataResult = snap.docs.map(
+    this.demosByCours = snap.docs.map(
       (e) => ({ id: e.id, ...e.data() } as demos)
     );
-
-    return this.dataResult;
+    return this.demosByCours;
   }
 
   getDataObservable(database: string, cours: string) {

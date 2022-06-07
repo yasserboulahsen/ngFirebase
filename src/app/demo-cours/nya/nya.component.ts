@@ -34,7 +34,7 @@ export class TableExpandableRowsExample {}
 })
 export class NyaComponent implements OnInit {
   demosNya: demos[] = [];
-  ELEMENT_DATA: demo[] = [];
+  ELEMENT_DATA: demos[] = [];
   dataSource: any[] = [];
   columnsToDisplay = ['position'];
   columnsToDisplayWithExpand: string[] = [];
