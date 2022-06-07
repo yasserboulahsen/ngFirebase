@@ -7,18 +7,15 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { userData } from '../interfaces/users';
 import { DataSharingService } from '../services/data-sharing.service';
-import { DatabaseService } from '../services/database.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuardGuard implements CanActivate {
+export class AdminAuthGuardGuard implements CanActivate {
   constructor(
-    private data: DataSharingService,
-    private router: Router,
-    private dataUser: DatabaseService
+    private datasharing: DataSharingService,
+    private router: Router
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -28,10 +25,8 @@ export class AuthGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    // const local = this.data.getLocalUser();
-    // console.log(local);
-
-    if (this.data.getLocalUserState()) {
+    const userRole = this.datasharing.getIsAdmin();
+    if (userRole) {
       return true;
     } else {
       this.router.navigate(['login']);

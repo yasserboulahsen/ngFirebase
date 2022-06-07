@@ -36,7 +36,7 @@ export class NyaComponent implements OnInit {
   demosNya: demos[] = [];
   ELEMENT_DATA: demo[] = [];
   dataSource: any[] = [];
-  columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
+  columnsToDisplay = ['position'];
   columnsToDisplayWithExpand: string[] = [];
   expandedElement!: demos;
   ngOnInit(): void {
