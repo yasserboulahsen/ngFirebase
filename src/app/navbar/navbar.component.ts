@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
     this.isadmin = this.dataCharing.getLocalUser().user.isAdmin;
     this.isUser = this.dataCharing.getLocalUserState();
     this.uid = this.dataCharing.getUserUid();
+    this.email = this.dataCharing.getLocalUser().user.name;
   }
   logout() {
     this.log.logout();
