@@ -31,7 +31,7 @@ export class AuthGuardGuard implements CanActivate {
     // const local = this.data.getLocalUser();
     // console.log(local);
 
-    if (this.data.getUser()) {
+    if (localStorage.getItem('isuser')) {
       return true;
     } else {
       this.router.navigate(['login']);

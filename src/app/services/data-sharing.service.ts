@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
+import { userData } from '../interfaces/users';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataSharingService {
-  localUser: string | null = '';
+  localUser: userData = {
+    user: {
+      name: '',
+      email: '',
+      isAdmin: false,
+      uid: '',
+    },
+  };
   idDemoEdited: any;
   isAdmin: boolean = false;
   imageUrl: string = '';
@@ -46,11 +54,11 @@ export class DataSharingService {
 
   setLocalUser(user: string | null) {
     if (user !== null) {
-      this.localUser = JSON.parse(user);
+      this.localUser = JSON.parse(user) as userData;
     }
   }
   getLocalUser() {
-    return this.localUser;
+    return this.localUser as userData;
   }
   getUserEmail() {
     return this.userEmail;

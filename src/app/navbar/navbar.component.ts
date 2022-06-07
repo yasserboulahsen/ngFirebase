@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
     this.isadmin = this.dataCharing.getIsAdmin();
     this.isUser = this.dataCharing.getUser();
     this.uid = this.dataCharing.getUserUid();
+    console.log(this.dataCharing.getLocalUser().user.isAdmin);
   }
   logout() {
     this.log.logout();

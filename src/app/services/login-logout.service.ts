@@ -50,8 +50,9 @@ export class LoginLogoutService {
 
         this.dataCharing.setUser(true);
         this.route.navigate(['/home']);
-        console.log(this.dataCharing.getIsAdmin());
-        const jsonUser = JSON.stringify(user);
+
+        localStorage.setItem('isuser', 'true');
+        const jsonUser = JSON.stringify(userLocal);
         localStorage.setItem('user', jsonUser);
         const userJson = localStorage.getItem('user');
         this.dataCharing.setLocalUser(userJson);
@@ -67,6 +68,7 @@ export class LoginLogoutService {
   logout() {
     signOut(this.auth).then(() => {
       this.route.navigate(['/login']);
+      localStorage.setItem('isuser', 'false');
       this.dataCharing.checkIfAdmin(false);
       const logoutUser = localStorage.clear();
     });
