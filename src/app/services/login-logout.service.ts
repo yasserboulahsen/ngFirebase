@@ -41,21 +41,15 @@ export class LoginLogoutService {
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-
         // this.dataCharing.setUserUid(user.uid);
         // this.dataCharing.setUserEmail(user.email);
         const userLocal = await this.dateSource.getUserDatabase(user.uid);
-
         this.dataCharing.checkIfAdmin(userLocal[0].user.isAdmin);
-
-        this.dataCharing.setUser(true);
+        // this.dataCharing.setUser(true);
         this.route.navigate(['/home']);
-
-        localStorage.setItem('isuser', 'true');
-        const jsonUser = JSON.stringify(userLocal);
+        const jsonUser = JSON.stringify(userLocal[0]);
         localStorage.setItem('user', jsonUser);
-        const userJson = localStorage.getItem('user');
-        this.dataCharing.setLocalUser(userJson);
+        localStorage.setItem('userLoged', 'true');
 
         // ...
       })
@@ -68,8 +62,6 @@ export class LoginLogoutService {
   logout() {
     signOut(this.auth).then(() => {
       this.route.navigate(['/login']);
-      localStorage.setItem('isuser', 'false');
-      this.dataCharing.checkIfAdmin(false);
       const logoutUser = localStorage.clear();
     });
   }

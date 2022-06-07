@@ -52,13 +52,12 @@ export class DataSharingService {
     this.userUid = uid;
   }
 
-  setLocalUser(user: string | null) {
-    if (user !== null) {
-      this.localUser = JSON.parse(user) as userData;
-    }
-  }
   getLocalUser() {
-    return this.localUser as userData;
+    const userJson = localStorage.getItem('user') as string;
+    return JSON.parse(userJson);
+  }
+  getLocalUserState() {
+    return localStorage.getItem('userLoged') as string;
   }
   getUserEmail() {
     return this.userEmail;

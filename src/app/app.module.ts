@@ -35,6 +35,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ShowImagesComponent } from './show-images/show-images.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 import { MatCardModule } from '@angular/material/card';
+import { AdminAuthGuardGuard } from './guards/admin-auth-guard.guard';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
@@ -44,7 +45,11 @@ const routes: Routes = [
     path: 'signup',
     component: SignupComponent,
   },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuardGuard] },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AdminAuthGuardGuard],
+  },
   {
     path: 'demos',
     component: DemoCoursComponent,
