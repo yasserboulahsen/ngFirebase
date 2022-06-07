@@ -10,7 +10,7 @@ import { LoginLogoutService } from '../services/login-logout.service';
 })
 export class NavbarComponent implements OnInit {
   isadmin: boolean = false;
-  isUser: boolean = false;
+  isUser: string = '';
   email: string | null = '';
   uid: string | null = '';
 
@@ -20,8 +20,8 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isadmin = this.dataCharing.getIsAdmin();
-    this.isUser = this.dataCharing.getUser();
+    this.isadmin = this.dataCharing.getLocalUser().user.isAdmin;
+    this.isUser = this.dataCharing.getLocalUserState();
     this.uid = this.dataCharing.getUserUid();
   }
   logout() {

@@ -45,13 +45,11 @@ export class LoginLogoutService {
         // this.dataCharing.setUserEmail(user.email);
         const userLocal = await this.dateSource.getUserDatabase(user.uid);
         this.dataCharing.checkIfAdmin(userLocal[0].user.isAdmin);
-        this.dataCharing.setUser(true);
+        // this.dataCharing.setUser(true);
         this.route.navigate(['/home']);
-        const jsonUser = JSON.stringify(user);
+        const jsonUser = JSON.stringify(userLocal[0]);
         localStorage.setItem('user', jsonUser);
         localStorage.setItem('userLoged', 'true');
-        console.log(this.dataCharing.getLocalUser().uid);
-        console.log(this.dataCharing.getLocalUserState());
 
         // ...
       })
@@ -64,7 +62,7 @@ export class LoginLogoutService {
   logout() {
     signOut(this.auth).then(() => {
       this.route.navigate(['/login']);
-      this.dataCharing.checkIfAdmin(false);
+
       const logoutUser = localStorage.clear();
     });
   }

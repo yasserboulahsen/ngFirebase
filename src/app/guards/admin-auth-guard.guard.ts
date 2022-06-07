@@ -25,8 +25,8 @@ export class AdminAuthGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const userRole = this.datasharing.getIsAdmin();
-    if (userRole) {
+    const userRole = this.datasharing.getLocalUser();
+    if (userRole.user.isAdmin) {
       return true;
     } else {
       this.router.navigate(['login']);
