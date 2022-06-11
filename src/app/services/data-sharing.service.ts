@@ -19,6 +19,8 @@ export class DataSharingService {
   isUser: boolean = false;
   userUid: string | null = '';
   userEmail: string | null = '';
+  adminDeleteDemo: any;
+  dataResult: any[] = [];
   constructor() {}
 
   setId(id: any) {
@@ -65,5 +67,18 @@ export class DataSharingService {
 
   setUserEmail(email: string | null) {
     this.userEmail = email;
+  }
+
+  setAdminDeleteDemo(demo: any) {
+    this.adminDeleteDemo = demo;
+  }
+  getAdminDeleteDemo() {
+    return this.adminDeleteDemo;
+  }
+  setDataResult(data: any[]) {
+    this.dataResult = data;
+  }
+  getDataResult() {
+    return this.dataResult;
   }
 }

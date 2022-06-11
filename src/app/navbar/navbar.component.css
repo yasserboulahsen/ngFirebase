@@ -7,3 +7,8 @@ span{
     flex-basis: auto;
     justify-content: space-between;
 }
+@media only screen and (max-width: 700px) {
+    li {
+     display: block;
+    }
+  }

@@ -36,6 +36,10 @@ import { ShowImagesComponent } from './show-images/show-images.component';
 import { AuthGuardGuard } from './guards/auth-guard.guard';
 import { MatCardModule } from '@angular/material/card';
 import { AdminAuthGuardGuard } from './guards/admin-auth-guard.guard';
+import { DemoComponent } from './demo-cours/demo/demo.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
@@ -72,6 +76,8 @@ const routes: Routes = [
     NybComponent,
     NycComponent,
     ShowImagesComponent,
+    DemoComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +97,8 @@ const routes: Routes = [
     MatTabsModule,
     MatTableModule,
     MatCardModule,
+    MatGridListModule,
+    MatExpansionModule,
     RouterModule.forRoot(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

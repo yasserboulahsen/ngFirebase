@@ -1,1 +1,11 @@
-<p>nyb works!</p>
+<mat-accordion *ngFor="let element of dataSource; let i = index">
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ element[0].chapitre }} </mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-demo [demoCard]="dataSource[i]"></app-demo>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -26,6 +26,7 @@ import { DatabaseService } from '../services/database.service';
 import { ShowImagesComponent } from '../show-images/show-images.component';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -50,9 +51,17 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.getdata();
   }
-  getdata() {
-    this.database.getAllDemos('demonstrations').then((data) => {
+  async getdata() {
+    await this.database.getAllDemos('demonstrations').then((data) => {
       this.dataResult = data;
+      this.sharedData.setDataResult(this.dataResult);
+      this.dataResult.forEach((e) => {
+        if (e.demo.url === 'null') {
+          e.demo.url =
+            'https://csp-clients.s3.amazonaws.com/easttexasspa/wp-content/uploads/2021/06/no-image-icon-23485.png';
+        }
+      });
+      console.log(this.dataResult);
     });
   }
 
@@ -63,10 +72,13 @@ export class AdminComponent implements OnInit {
   onclick(event: any, clicked: any) {
     const tr = clicked.target.parentElement.parentElement;
     //tr.classList.add('moveToleft');
-    const index = this.dataResult.indexOf(event);
-    this.dataResult.splice(index, 1);
-    this.idDemo = event.id;
-    this.deleteData();
+
+    this.sharedData.setAdminDeleteDemo(event);
+    this.dialog.open(DeleteDialogComponent);
+    this.dataResult = this.sharedData.getDataResult();
+    // const index = this.dataResult.indexOf(event);
+    // this.dataResult.splice(index, 1);
+
     //this.getdata();
   }
   openDialog(idEvent: any) {

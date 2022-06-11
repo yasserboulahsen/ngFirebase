@@ -12,6 +12,7 @@ import {
   where,
   onSnapshot,
   DocumentData,
+  orderBy,
 } from 'firebase/firestore';
 import {
   getDownloadURL,
@@ -25,6 +26,7 @@ import { finalize, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { demos } from 'src/app/interfaces/demos';
 import { userData } from '../interfaces/users';
+import { groupBy } from 'rxjs/internal/operators/groupBy';
 
 @Injectable({
   providedIn: 'root',
@@ -55,6 +57,12 @@ export class DatabaseService {
         material: f.value.textarea,
         url: await this.uploadImage(f.value.url, f.value.cours, file),
       },
+    });
+  }
+
+  async postReserveDemo(data: demos, database: string) {
+    await setDoc(doc(collection(this.data, database)), {
+      data,
     });
   }
 
