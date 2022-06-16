@@ -24,6 +24,8 @@ import { Router } from '@angular/router';
 import { DataSharingService } from '../services/data-sharing.service';
 import { DatabaseService } from './database.service';
 import { userData } from '../interfaces/users';
+import { MatDialog } from '@angular/material/dialog';
+import { InvalidCredentialComponent } from '../invalid-credential/invalid-credential.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -34,7 +36,8 @@ export class LoginLogoutService {
   constructor(
     private route: Router,
     private dataCharing: DataSharingService,
-    private dateSource: DatabaseService
+    private dateSource: DatabaseService,
+    public dialog: MatDialog
   ) {}
   login(from: any) {
     signInWithEmailAndPassword(this.auth, from.value.email, from.value.password)
@@ -56,6 +59,7 @@ export class LoginLogoutService {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        this.dialog.open(InvalidCredentialComponent);
       });
   }
 

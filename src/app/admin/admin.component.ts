@@ -24,9 +24,12 @@ import { AddDemoComponent } from '../add-demo/add-demo.component';
 import { DataSharingService } from '../services/data-sharing.service';
 import { DatabaseService } from '../services/database.service';
 import { ShowImagesComponent } from '../show-images/show-images.component';
-import { Observable } from 'rxjs';
+import { observable, Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+
+import { map, startWith } from 'rxjs/operators';
+import { demo } from '../interfaces/demo';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -38,15 +41,15 @@ export class AdminComponent implements OnInit {
   idDemo: string = '';
   dataResult: any[] = [];
 
-  dataObs: Observable<demos[]> | null;
+  myControl = new FormControl('');
+
+  filteredOptions: Observable<demos[]> = new Observable();
 
   constructor(
     public dialog: MatDialog,
     private sharedData: DataSharingService,
     private database: DatabaseService
-  ) {
-    this.dataObs = null;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getdata();
@@ -54,14 +57,13 @@ export class AdminComponent implements OnInit {
   async getdata() {
     await this.database.getAllDemos('demonstrations').then((data) => {
       this.dataResult = data;
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map((value) => (typeof value === 'string' ? value : value?.name)),
+        map((name) => (name ? this._filter(name) : this.dataResult.slice()))
+      );
+
       this.sharedData.setDataResult(this.dataResult);
-      this.dataResult.forEach((e) => {
-        if (e.demo.url === 'null') {
-          e.demo.url =
-            'https://csp-clients.s3.amazonaws.com/easttexasspa/wp-content/uploads/2021/06/no-image-icon-23485.png';
-        }
-      });
-      console.log(this.dataResult);
     });
   }
 
@@ -91,5 +93,16 @@ export class AdminComponent implements OnInit {
   showPic(demo: string) {
     this.sharedData.setImage(demo);
     this.dialog.open(ShowImagesComponent);
+  }
+  displayFn(user: demos): string {
+    return user && user.demo.name ? user.demo.name : '';
+  }
+
+  private _filter(name: string): demos[] {
+    const filterValue = name.toLowerCase();
+
+    return this.dataResult.filter((option) =>
+      option.demo.name.toLowerCase().includes(filterValue)
+    );
   }
 }

@@ -40,6 +40,8 @@ import { DemoComponent } from './demo-cours/demo/demo.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { InvalidCredentialComponent } from './invalid-credential/invalid-credential.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardGuard] },
@@ -78,6 +80,7 @@ const routes: Routes = [
     ShowImagesComponent,
     DemoComponent,
     DeleteDialogComponent,
+    InvalidCredentialComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +102,7 @@ const routes: Routes = [
     MatCardModule,
     MatGridListModule,
     MatExpansionModule,
+    MatAutocompleteModule,
     RouterModule.forRoot(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
