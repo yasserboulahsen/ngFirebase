@@ -1,6 +1,9 @@
 <section class="card-list">
   <article class="card" *ngFor="let data of nycDamoData">
     <header class="card-header">{{ data.demo.name }}</header>
+    <div class="place">
+      {{ data.demo.place }}
+    </div>
     <div class="card-author">
       <a class="author-avatar"
         ><img src="{{ data.demo.url }}" alt="" (click)="showPic(data.demo.url)"
@@ -8,6 +11,7 @@
       <svg class="half-circle" viewBox="0 0 106 57">
         <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
       </svg>
+      <button class="rserve-button" (click)="reserve(data)">Reserver</button>
     </div>
   </article>
 </section>

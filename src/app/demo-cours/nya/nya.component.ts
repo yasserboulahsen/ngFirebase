@@ -15,6 +15,8 @@ import {
   trigger,
 } from '@angular/animations';
 import { demo } from 'src/app/interfaces/demo';
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
 export class TableExpandableRowsExample {}
 
 @Component({
@@ -34,7 +36,8 @@ export class TableExpandableRowsExample {}
 })
 export class NyaComponent implements OnInit {
   panelOpenState = false;
-
+  filteredOptions: Observable<demos[]> = new Observable();
+  myControl = new FormControl('');
   dataSource: any[] = [];
 
   ngOnInit(): void {
@@ -72,5 +75,17 @@ export class NyaComponent implements OnInit {
       }
     }
     return result;
+  }
+
+  displayFn(user: demos): string {
+    return user ? user.demo.name : '';
+  }
+
+  private _filter(name: string): demos[] {
+    const filterValue = name.toLowerCase();
+    console.log(filterValue);
+    return this.dataSource.filter((option) =>
+      option.demo.name.toLowerCase().includes(filterValue)
+    );
   }
 }
