@@ -24,12 +24,13 @@ import { AddDemoComponent } from '../add-demo/add-demo.component';
 import { DataSharingService } from '../services/data-sharing.service';
 import { DatabaseService } from '../services/database.service';
 import { ShowImagesComponent } from '../show-images/show-images.component';
-import { observable, Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { Observable, of as observableOf, merge } from 'rxjs';
+
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 import { map, startWith } from 'rxjs/operators';
 import { demo } from '../interfaces/demo';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -40,6 +41,8 @@ export class AdminComponent implements OnInit {
   data = getFirestore(this.getFire);
   idDemo: string = '';
   dataResult: any[] = [];
+  dataSource: any[] = [];
+  displayedColumns: string[] = ['Chapitre', 'Nom', 'Place', 'Image', 'Edit'];
 
   myControl = new FormControl('');
 
@@ -56,14 +59,14 @@ export class AdminComponent implements OnInit {
   }
   async getdata() {
     await this.database.getAllDemos('demonstrations').then((data) => {
-      this.dataResult = data;
+      this.dataSource = data;
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(''),
         map((value) => (typeof value === 'string' ? value : value?.name)),
-        map((name) => (name ? this._filter(name) : this.dataResult.slice()))
+        map((name) => (name ? this._filter(name) : this.dataSource.slice()))
       );
 
-      this.sharedData.setDataResult(this.dataResult);
+      this.sharedData.setDataResult(this.dataSource);
     });
   }
 
@@ -77,7 +80,7 @@ export class AdminComponent implements OnInit {
 
     this.sharedData.setAdminDeleteDemo(event);
     this.dialog.open(DeleteDialogComponent);
-    this.dataResult = this.sharedData.getDataResult();
+    this.dataSource = this.sharedData.getDataResult();
     // const index = this.dataResult.indexOf(event);
     // this.dataResult.splice(index, 1);
 
@@ -95,12 +98,12 @@ export class AdminComponent implements OnInit {
     this.dialog.open(ShowImagesComponent);
   }
   displayFn(user: demos): string {
-    return user && user.demo.name ? user.demo.name : '';
+    return user ? user.demo.name : '';
   }
 
   private _filter(name: string): demos[] {
     const filterValue = name.toLowerCase();
-
+    console.log(filterValue);
     return this.dataResult.filter((option) =>
       option.demo.name.toLowerCase().includes(filterValue)
     );
